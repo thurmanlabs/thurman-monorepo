@@ -4,13 +4,12 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Textarea } from "@repo/ui/components/ui/textarea";
 
 import { HelloArchitectAbi } from "@repo/contracts/abi";
-import { type ExtractAbiEvent, type ExtractAbiFunction } from 'abitype';
 import { useReadContract, useWriteContract } from "wagmi";
 import { Address } from "@/lib/types";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Debug: Log the contract address
-const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_HELLOARCHITECT_ADDRESS as `0x${string}`;
+const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_HELLOARCHITECT_ADDRESS as Address;
 console.log("Contract Address:", CONTRACT_ADDRESS);
 console.log("ABI:", HelloArchitectAbi);
 
@@ -47,7 +46,7 @@ export default function Home() {
   const handleSetGreeting = async () => {
     try {
       const hash = await writeContractAsync({
-        address: process.env.NEXT_PUBLIC_HELLOARCHITECT_ADDRESS as `0x${string}`,
+        address: process.env.NEXT_PUBLIC_HELLOARCHITECT_ADDRESS as Address,
         abi: HelloArchitectAbi,
         functionName: "setGreeting",
         args: [inputGreeting],
