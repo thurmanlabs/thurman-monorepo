@@ -1,0 +1,5 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "include": ["src/**/*.ts", "generate-abis.ts"],
+  "exclude": ["node_modules"]
+}

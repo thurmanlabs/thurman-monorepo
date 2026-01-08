@@ -1,0 +1,16 @@
+{
+  "name": "@repo/contracts",
+  "type": "module",
+  "scripts": {
+    "generate-abis": "tsx generate-abis.ts",
+    "build": "forge build && pnpm generate-abis",
+    "test": "forge test"
+  },
+  "exports": {
+    "./abi": "./src/abi/index.ts"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "tsx": "^4.21.0"
+  }
+}
