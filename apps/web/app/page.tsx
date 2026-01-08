@@ -8,13 +8,11 @@ import { useReadContract, useWriteContract } from "wagmi";
 import { Address } from "@/lib/types";
 import { useState } from "react";
 
-// Debug: Log the contract address
-const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_HELLOARCHITECT_ADDRESS as Address;
-console.log("Contract Address:", CONTRACT_ADDRESS);
-console.log("ABI:", HelloArchitectAbi);
 
 export default function Home() {
   const [inputGreeting, setInputGreeting] = useState("");
+
+  const contractAddress = process.env.NEXT_PUBLIC_HELLOARCHITECT_ADDRESS as Address;
 
   const { 
     data: greeting, 
@@ -25,7 +23,7 @@ export default function Home() {
     fetchStatus: readFetchStatus,
     isError: isReadError,
   } = useReadContract({
-    address: CONTRACT_ADDRESS,
+    address: contractAddress,
     abi: HelloArchitectAbi,
     functionName: "getGreeting",
   });
@@ -46,7 +44,7 @@ export default function Home() {
   const handleSetGreeting = async () => {
     try {
       const hash = await writeContractAsync({
-        address: process.env.NEXT_PUBLIC_HELLOARCHITECT_ADDRESS as Address,
+        address: contractAddress,
         abi: HelloArchitectAbi,
         functionName: "setGreeting",
         args: [inputGreeting],
@@ -65,7 +63,7 @@ export default function Home() {
       {/* Debug Panel */}
       <div className="fixed top-4 left-4 bg-black/80 text-white p-4 rounded-lg text-xs font-mono">
         <h3 className="font-bold mb-2">Debug Info</h3>
-        <div>Contract: {CONTRACT_ADDRESS || "NOT SET!"}</div>
+        <div>Contract: {contractAddress || "NOT SET!"}</div>
         <div>Read Status: {readStatus}</div>
         <div>Fetch Status: {readFetchStatus}</div>
         <div>Greeting Data: {JSON.stringify(greeting)}</div>
