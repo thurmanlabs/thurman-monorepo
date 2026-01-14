@@ -1,0 +1,39 @@
+services:
+  # PostgreSQL database
+  db:
+    image: postgres:16-alpine
+    container_name: thurman-db
+    environment:
+      POSTGRES_USER: thurman
+      POSTGRES_PASSWORD: thurman
+      POSTGRES_DB: thurman
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U thurman -d thurman"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Next.js web app (includes tRPC API)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: thurman-web
+    ports:
+      - "3000:3000"
+    environment:
+      # Database
+      DATABASE_URL: postgresql://thurman:thurman@db:5432/thurman
+      # Contract config (override in .env)
+      NEXT_PUBLIC_HELLOARCHITECT_ADDRESS: ${NEXT_PUBLIC_HELLOARCHITECT_ADDRESS:-0xC04db813CF06EE6dCD70BDC77dC51B17534604bE}
+      NEXT_PUBLIC_ARC_TESTNET_RPC_URL: ${NEXT_PUBLIC_ARC_TESTNET_RPC_URL:-https://rpc.testnet.arc.network}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

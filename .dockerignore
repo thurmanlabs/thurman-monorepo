@@ -1,0 +1,39 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs
+.next
+**/.next
+out
+**/out
+dist
+**/dist
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Environment files (will be passed via docker-compose)
+.env
+.env.*
+!.env.example
+!example.env*
+
+# Misc
+*.log
+npm-debug.log*
+.DS_Store
+coverage
+.turbo
+
+# Foundry build artifacts (large)
+packages/contracts/out
+packages/contracts/cache
+packages/contracts/lib
