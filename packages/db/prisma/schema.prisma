@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  walletAddress String    @unique
+  role          UserRole?
+  kycStatus     KycStatus @default(NOT_STARTED)
+  companyName   String?
+
+  pools Pool[]
+  loans Loan[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Pool {
+  id            String  @id @default(uuid())
+  onChainPoolId Int     @unique
+  name          String
+  description   String?
+  assetSymbol   String
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  loans Loan[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Loan {
+  id              String     @id @default(uuid())
+  onChainLoanId   Int?
+  borrowerAddress String
+  principal       String
+  interestRate    String
+  termMonths      Int
+  retentionRate   String
+  status          LoanStatus @default(DRAFT)
+
+  poolId String
+  pool   Pool   @relation(fields: [poolId], references: [id])
+
+  originatorId String
+  originator   User   @relation(fields: [originatorId], references: [id])
+
+  txHash String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([poolId, status])
+}
+
+enum UserRole {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+enum KycStatus {
+  NOT_STARTED
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum LoanStatus {
+  DRAFT
+  PENDING
+  ACTIVE
+  CLOSED
+  DEFAULTED
+}
