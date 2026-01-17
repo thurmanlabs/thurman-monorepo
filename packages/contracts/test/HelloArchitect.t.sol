@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.30;
 
-import "forge-std/Test.sol";
-import "../src/HelloArchitect.sol";
+import { Test } from "forge-std/Test.sol";
+import { HelloArchitect } from "../src/HelloArchitect.sol";
 
 contract HelloArchitectTest is Test {
     HelloArchitect helloArchitect;
