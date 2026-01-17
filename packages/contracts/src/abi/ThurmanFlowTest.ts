@@ -1,5 +1,5 @@
-// Generated from out/CreateAndSettleLoanSale.sol/CreateAndSettleLoanSaleTest.json
-export const CreateAndSettleLoanSaleTestAbi = [
+// Generated from out/ThurmanFlow.sol/ThurmanFlowTest.json
+export const ThurmanFlowTestAbi = [
   {
     "type": "function",
     "name": "IS_TEST",
@@ -213,7 +213,7 @@ export const CreateAndSettleLoanSaleTestAbi = [
   },
   {
     "type": "function",
-    "name": "testCreateAndSettleLoanSale",
+    "name": "testCreateLoan",
     "inputs": [],
     "outputs": [],
     "stateMutability": "nonpayable"

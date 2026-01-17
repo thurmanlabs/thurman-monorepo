@@ -22,10 +22,11 @@ function findAbiFiles(dir: string): string[] {
 
 const abiFiles = findAbiFiles(OUT_DIR);
 
-// Ensure export directory exists
-if (!fs.existsSync(EXPORT_DIR)) {
-  fs.mkdirSync(EXPORT_DIR, { recursive: true });
+// Clear and recreate export directory
+if (fs.existsSync(EXPORT_DIR)) {
+  fs.rmSync(EXPORT_DIR, { recursive: true });
 }
+fs.mkdirSync(EXPORT_DIR, { recursive: true });
 
 const exports: string[] = [];
 

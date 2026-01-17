@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "generate-abis": "tsx generate-abis.ts",
-    "build": "forge build && pnpm generate-abis",
+    "clean": "forge clean",
+    "build": "pnpm clean && forge build && pnpm generate-abis",
     "test": "forge test"
   },
   "exports": {

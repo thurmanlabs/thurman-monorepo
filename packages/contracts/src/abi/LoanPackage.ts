@@ -107,6 +107,11 @@ export const LoanPackageAbi = [
         "internalType": "uint256"
       },
       {
+        "name": "packageType",
+        "type": "uint8",
+        "internalType": "enum ILoanPackage.PackageType"
+      },
+      {
         "name": "loanTapeHash",
         "type": "bytes32",
         "internalType": "bytes32"
@@ -213,6 +218,11 @@ export const LoanPackageAbi = [
             "name": "status",
             "type": "uint8",
             "internalType": "enum ILoanPackage.PackageStatus"
+          },
+          {
+            "name": "packageType",
+            "type": "uint8",
+            "internalType": "enum ILoanPackage.PackageType"
           },
           {
             "name": "createdAt",
@@ -578,6 +588,12 @@ export const LoanPackageAbi = [
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      },
+      {
+        "name": "packageType",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "enum ILoanPackage.PackageType"
       },
       {
         "name": "loanTapeHash",
